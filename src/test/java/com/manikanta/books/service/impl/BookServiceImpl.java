@@ -5,7 +5,11 @@ import com.manikanta.books.domain.BookEntity;
 import com.manikanta.books.repositories.BookRepository;
 import com.manikanta.books.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -22,6 +26,27 @@ public class BookServiceImpl implements BookService {
         final BookEntity bookEntity = bookToBookEntity(book);
         final BookEntity savedBookEntity = bookRepository.save(bookEntity);
         return bookEntityToBook(savedBookEntity);
+    }
+
+    @Override
+    public Optional<Book> findById(String isbn) {
+        final Optional<BookEntity> foundBook = bookRepository.findById(isbn);
+        return foundBook.map(book -> bookEntityToBook(book));
+    }
+
+    @Override
+    public List<Book> listBooks() {
+        return null;
+    }
+
+    @Override
+    public boolean isBookExists(Book book) {
+        return false;
+    }
+
+    @Override
+    public void deleteBookById(String isbn) {
+
     }
 
     final BookEntity bookToBookEntity(Book book) {
