@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BookService {
-    Book create(Book book);
+    Book save(Book book);
 
     Optional<Book> findById(String isbn);
 
